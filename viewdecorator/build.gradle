@@ -1,0 +1,47 @@
+import com.android.builder.core.VariantType
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    defaultConfig {
+        minSdkVersion 8
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.android.support:appcompat-v7:23.1.1'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+}
+
+
+android.libraryVariants.all { variant ->
+    def variantData = variant.getVariantData()
+    def testVariantData = variantData.getTestVariantData(VariantType.UNIT_TEST)
+    if(testVariantData != null) {
+        def runTestTaskName = testVariantData.getScope().getTaskName(VariantType.UNIT_TEST.getPrefix())
+        def runTestTask = project.getTasks().findByName(runTestTaskName);
+        runTestTask.classpath = testVariantData.javacTask.getOutputs().getFiles() + runTestTask.classpath
+    }
+}
+
+
