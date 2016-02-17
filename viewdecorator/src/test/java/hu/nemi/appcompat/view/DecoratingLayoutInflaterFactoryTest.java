@@ -18,6 +18,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DecoratingLayoutInflaterFactoryTest {
@@ -47,5 +48,11 @@ public class DecoratingLayoutInflaterFactoryTest {
         View actual = decoratingLayoutInflaterFactory.onCreateView(parent, VIEW_NAME, context, attrs);
         assertEquals(view, actual);
         verify(viewDecorator).decorate(eq(parent), eq(view), eq(context), eq(attrs));
+    }
+
+    @Test
+    public void testOnCreateViewViewNotCreated() {
+        decoratingLayoutInflaterFactory.onCreateView(parent, VIEW_NAME, context, attrs);
+        verifyZeroInteractions(viewDecorator);
     }
 }
