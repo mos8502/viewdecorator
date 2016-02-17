@@ -21,7 +21,9 @@ class DecoratingLayoutInflaterFactory implements LayoutInflaterFactory {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         View view = delegate.createView(parent, name, context, attrs);
-        target.decorate(parent, view, context, attrs);
+        if(view != null) {
+            target.decorate(parent, view, context, attrs);
+        }
         return view;
     }
 }
