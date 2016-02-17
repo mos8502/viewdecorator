@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Font">
+        <attr format="enum" name="font" >
+            <enum name="AnonymousProRegular" value="0" />
+            <enum name="AvroRegular" value="1" />
+            <enum name="ChivoRegular" value="2" />
+            <enum name="VarelaRoundRegular" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>
