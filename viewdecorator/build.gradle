@@ -1,6 +1,11 @@
 import com.android.builder.core.VariantType
 
+group = 'hu.nemi'
+version = "0.1"
+
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 23
@@ -14,7 +19,7 @@ android {
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
     }
 
     buildTypes {
@@ -41,6 +46,31 @@ android.libraryVariants.all { variant ->
         def runTestTaskName = testVariantData.getScope().getTaskName(VariantType.UNIT_TEST.getPrefix())
         def runTestTask = project.getTasks().findByName(runTestTaskName);
         runTestTask.classpath = testVariantData.javacTask.getOutputs().getFiles() + runTestTask.classpath
+    }
+}
+
+
+def siteUrl = 'https://github.com/mos8502/viewdecorator'
+def gitUrl = 'https://github.com/mos8502/viewdecorator.git'
+
+// properties are loaded from local.properties, not commited/pushed
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty('bintrayUser')
+    key  = properties.getProperty('bintrayKey')
+    configurations = ['archives']
+    pkg {
+        repo = 'playground'
+        name = project.name
+        desc = 'View Decorator library for Android'
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'https://github.com/mos8502/viewdecorator/issues'
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        labels = ['aar', 'android']
+	publish = true
     }
 }
 
