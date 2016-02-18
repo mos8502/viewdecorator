@@ -54,12 +54,21 @@ def siteUrl = 'https://github.com/mos8502/viewdecorator'
 def gitUrl = 'https://github.com/mos8502/viewdecorator.git'
 
 // properties are loaded from local.properties, not commited/pushed
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def bintrayUser = System.getenv('BINTRAY_USER')
+def bintrayKey = System.getenv('BINTRAY_KEY')
+
+def localProperties = project.rootProject.file('local.properties')
+if(localProperties.exists()) {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    bintrayUser = properties.getProperty('bintrayUser')
+    bintrayKey  = properties.getProperty('bintrayKey')
+}
 
 bintray {
-    user = properties.getProperty('bintrayUser')
-    key  = properties.getProperty('bintrayKey')
+    user = bintrayUser
+    key  = bintrayKey
+
     configurations = ['archives']
     pkg {
         repo = 'playground'
