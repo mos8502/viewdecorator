@@ -38,7 +38,7 @@ class ViewFactoryV11 implements ViewFactory {
     private static Method getOnCreateViewMethod() {
         try {
             Method method = LayoutInflater.class.getDeclaredMethod("onCreateView",
-                    new Class[]{View.class, String.class, AttributeSet.class});
+                    View.class, String.class, AttributeSet.class);
             method.setAccessible(true);
             return method;
         } catch (NoSuchMethodException e) {

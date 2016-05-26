@@ -37,9 +37,6 @@ public class ViewDecoratorInstaller {
     @UiThread
     public boolean install(@NonNull AppCompatActivity activity) {
         AppCompatDelegate delegate = activity.getDelegate();
-        if(delegate == null) {
-            throw new IllegalStateException("activity has no delegate");
-        }
 
         LayoutInflater layoutInflater = activity.getLayoutInflater();
 

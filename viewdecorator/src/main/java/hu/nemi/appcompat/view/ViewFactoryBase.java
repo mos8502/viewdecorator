@@ -6,7 +6,7 @@ import android.view.View;
 
 import java.lang.reflect.Method;
 
-public class ViewFactoryBase implements ViewFactory {
+class ViewFactoryBase implements ViewFactory {
     private Method method;
     private LayoutInflater layoutInflater;
 
@@ -18,7 +18,7 @@ public class ViewFactoryBase implements ViewFactory {
     private Method getOnCreateViewMethod() {
         try {
             Method method = LayoutInflater.class.getDeclaredMethod("onCreateView",
-                    new Class[]{String.class, AttributeSet.class});
+                    String.class, AttributeSet.class);
             method.setAccessible(true);
             return method;
         } catch (NoSuchMethodException e) {
