@@ -8,8 +8,6 @@ import android.view.View;
 
 import java.lang.reflect.Method;
 
-import hu.nemi.appcompat.view.ViewDecorator;
-
 public class DecoratingLayoutInflaterFactory implements LayoutInflaterFactory {
     private ViewDecorator viewDecorator;
     private ViewFactory viewFactory;
