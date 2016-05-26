@@ -1,18 +1,18 @@
 package hu.nemi.view.demo;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import hu.nemi.appcompat.view.ViewDecoratorInstaller;
 import hu.nemi.appcompat.view.ViewDecorator;
+import hu.nemi.appcompat.view.ViewDecoratorInstaller;
 
-public class DemoActivity extends Activity implements ViewDecorator {
+public class AppCompatDemoActivity extends AppCompatActivity implements ViewDecorator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         installViewDecorator();

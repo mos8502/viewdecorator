@@ -1,5 +1,6 @@
 package hu.nemi.appcompat.view;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -43,12 +44,25 @@ public class ViewDecoratorInstaller {
         LayoutInflater layoutInflater = activity.getLayoutInflater();
 
         if(layoutInflater.getFactory() == null) {
-            LayoutInflaterFactory layoutInflaterFactory = new DecoratingLayoutInflaterFactory(delegate, viewDecorator);
+            LayoutInflaterFactory layoutInflaterFactory = new AppCompatDecoratingLayoutInflaterFactory(delegate, viewDecorator);
             LayoutInflaterCompat.setFactory(layoutInflater, layoutInflaterFactory);
             return true;
         }
 
         Log.w(TAG, "view decorator can't be installed, layout infalter already has view factory installed");
+
+        return false;
+    }
+
+    @UiThread
+    public boolean install(@NonNull Activity activity) {
+        LayoutInflater layoutInflater = activity.getLayoutInflater();
+
+        if(layoutInflater.getFactory() == null) {
+            LayoutInflaterFactory layoutInflaterFactory = new DecoratingLayoutInflaterFactory(layoutInflater, viewDecorator);
+            LayoutInflaterCompat.setFactory(layoutInflater, layoutInflaterFactory);
+            return true;
+        }
 
         return false;
     }

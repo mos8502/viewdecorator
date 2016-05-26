@@ -63,7 +63,7 @@ public class ViewDecoratorInstallerTest {
         doReturn(appCompatDelegate).when(appCompatActivity).getDelegate();
 
         assertTrue(viewDecoratorInstaller.install(appCompatActivity));
-        assertTrue(factoryCaptor.getValue() instanceof DecoratingLayoutInflaterFactory);
+        assertTrue(factoryCaptor.getValue() instanceof AppCompatDecoratingLayoutInflaterFactory);
 
     }
 

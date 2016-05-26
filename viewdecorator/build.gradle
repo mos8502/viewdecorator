@@ -16,7 +16,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 8
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
         versionName "0.1-SNAPSHOT"
@@ -31,11 +31,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided 'com.android.support:appcompat-v7:23.1.1'
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
+    compile 'com.android.support:appcompat-v7:23.4.0'
 }
 
 
