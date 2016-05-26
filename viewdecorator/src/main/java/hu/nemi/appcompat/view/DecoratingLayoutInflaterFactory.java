@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 
-public class DecoratingLayoutInflaterFactory implements LayoutInflaterFactory {
+class DecoratingLayoutInflaterFactory implements LayoutInflaterFactory {
     private ViewDecorator viewDecorator;
     private ViewFactory viewFactory;
 
