@@ -1,6 +1,7 @@
 package hu.nemi.appcompat.view;
 
 import android.app.Activity;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -41,7 +42,9 @@ public class ViewDecoratorInstaller {
         LayoutInflater layoutInflater = activity.getLayoutInflater();
 
         if(layoutInflater.getFactory() == null) {
-            LayoutInflaterFactory layoutInflaterFactory = new AppCompatDecoratingLayoutInflaterFactory(delegate, viewDecorator);
+            LayoutInflaterFactory layoutInflaterFactory = new DecoratingLayoutInflaterFactory(
+                    new CompositingViewFactory(getPlatformViewFactory(layoutInflater),
+                            new AppCompatViewFactory(delegate, activity)), viewDecorator);
             LayoutInflaterCompat.setFactory(layoutInflater, layoutInflaterFactory);
             return true;
         }
@@ -56,11 +59,22 @@ public class ViewDecoratorInstaller {
         LayoutInflater layoutInflater = activity.getLayoutInflater();
 
         if(layoutInflater.getFactory() == null) {
-            LayoutInflaterFactory layoutInflaterFactory = new DecoratingLayoutInflaterFactory(layoutInflater, viewDecorator);
+            LayoutInflaterFactory layoutInflaterFactory = new DecoratingLayoutInflaterFactory(
+                    getPlatformViewFactory(layoutInflater), viewDecorator);
             LayoutInflaterCompat.setFactory(layoutInflater, layoutInflaterFactory);
             return true;
         }
 
         return false;
     }
+
+    private ViewFactory getPlatformViewFactory(LayoutInflater layoutInflater) {
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            return new ViewFactoryBase(layoutInflater);
+        }
+
+        return new ViewFactoryV11(layoutInflater);
+    }
+
+
 }

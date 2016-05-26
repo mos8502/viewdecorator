@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AppCompatDemoActivity">
 
-    <TextView
+    <android.widget.TextView
         app:font="AnonymousProRegular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
